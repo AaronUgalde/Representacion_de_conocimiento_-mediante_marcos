@@ -62,7 +62,6 @@ public class Gui extends JFrame {
         cargaConocimiento("engine.pl");
         cargaConocimiento("knowledge.pl");
 
-        // Panel de Consulta Clases
         clases = consultaClases();
         for (String clase : clases) listModel1.addElement(clase.trim());
         listaClases = new JList<>(listModel1);
@@ -105,7 +104,6 @@ public class Gui extends JFrame {
         listaClases.addListSelectionListener(evt -> gestionaClases(evt));
         listaClases.setSelectedIndex(0);
 
-        // Panel de Búsqueda por propiedades
         properties = consultaTodasPropiedades();
         for (String prop : properties) listModel2.addElement(prop.trim());
         listaPropiedades = new JList<>(listModel2);
@@ -128,7 +126,6 @@ public class Gui extends JFrame {
         listaPropiedades.addListSelectionListener(evt -> gestionaPropiedades(evt));
         listaPropiedades.setSelectedIndex(0);
 
-        // Panel del árbol taxonómico
         tab03.setLayout(null);
         DefaultMutableTreeNode root = buildTaxonomyTree();
         JTree tree = new JTree(root);
@@ -136,7 +133,6 @@ public class Gui extends JFrame {
         spTree.setBounds(0, 0, 840, 550);
         tab03.add(spTree);
 
-        // Handle the X-Button
         class MyWindowAdapter extends WindowAdapter {
             @Override
             public void windowClosing(WindowEvent eventObject) {
@@ -210,7 +206,6 @@ public class Gui extends JFrame {
         propiedadesDisplayArea.setText(sb.toString());
     }
 
-    // ... resto de métodos (consultaClases, consultaPropiedades, etc.) permanecen sin cambios ...
 
     private String obtieneDescripcion(String clase)
     {
@@ -228,7 +223,6 @@ public class Gui extends JFrame {
     private String[] consultaPropiedades(String obj)
     {
         String consulta = "propiedadesc("+ obj+ ", L)";
-        //System.out.println(consulta);
         String[] resultado = null;
         q1 = new Query(consulta);
         if(q1.hasSolution())
@@ -244,7 +238,6 @@ public class Gui extends JFrame {
     private String[] consultaSuperclases(String clase)
     {
         String consulta = "superclases_de("+ clase + ", L)";
-        //System.out.println(consulta);
         String[] resultado = null;
         q1 = new Query(consulta);
         if(q1.hasSolution())
@@ -275,7 +268,7 @@ public class Gui extends JFrame {
     private void cargaConocimiento(String archivo)
     {
         String consulta = "consult('" + "prolog/" + archivo + "')";
-        q1 = new Query(consulta); // Se general el Query con el String de consulta
+        q1 = new Query(consulta);
         System.out.println( consulta + " " + (q1.hasSolution() ? "succeeded" : "failed") ); // se realiza la consulta
     }
 
